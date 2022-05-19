@@ -8,10 +8,6 @@ profile = json.loads(raw_json)  # получаем список словарей
 
 def load_candidates_from_json():
     """Возвращает список всех кандидатов"""
-    list_all_candidates = []
-    for dict in profile:
-        list_all_candidates.append(dict['name'])
-    # return list_all_candidates
     return profile
 
 
