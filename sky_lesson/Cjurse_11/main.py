@@ -4,7 +4,7 @@ from utils import load_candidates_from_json, get_candidate, get_candidates_by_na
 app = Flask(__name__)  # создаем экземпляр класса
 
 
-@app.route('/image')
+@app.route('/image/')
 def image():
     """Выводит картинку для первой части Д/З"""
     return render_template("image.html")
@@ -17,7 +17,7 @@ def all_candidates():
     return render_template('list.html', list_name=list_name)
 
 
-@app.route('/candidate/<int:x>')
+@app.route('/candidate/<int:x>/')
 def candidate(x):
     """Выводит данные кандидата по  id """
     dict = get_candidate(x)  # получаем словарь по id
@@ -30,7 +30,7 @@ def candidate(x):
                            )
 
 
-@app.route('/search/<candidate_name>')
+@app.route('/search/<candidate_name>/')
 def search_candidate_name(candidate_name):
     """Выводит кандидатов, в имени у которых содержится candidate_name """
     list_count_name = get_candidates_by_name(candidate_name)  # список совпадений
@@ -38,7 +38,7 @@ def search_candidate_name(candidate_name):
     return render_template('search.html', list_count_name=list_count_name, num=num)
 
 
-@app.route('/skill/<skill_name>')
+@app.route('/skill/<skill_name>/')
 def skill_name(skill_name):
     """Выводит кандидатов, в списке навыков у которых содержится skill"""
     list_skill_name = get_candidates_by_skill(skill_name)  # список кандидатов
