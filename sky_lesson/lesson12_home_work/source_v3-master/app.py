@@ -9,7 +9,7 @@ from lesson12_home_work.main.views import view_foto_blueprint
 from lesson12_home_work.loader.views import loader_foto_blueprint
 
 POST_PATH = "posts.json"
-UPLOAD_FOLDER = "uploads"
+
 
 app = Flask(__name__)
 
@@ -38,6 +38,9 @@ def search_page():
     return redirect(url_for('.page_index'))
 
 
+UPLOAD_FOLDER = './uploads/images/'  # файл для сохранения изображения
+
+
 @app.route("/upload", methods=["GET", "POST"])
 def page_post_form():
     """Добавить новый пост"""
@@ -48,11 +51,10 @@ def page_post_form():
         if len(content) > 0 and pic:  # если есть контент и картинка
             filename = pic.filename  # Получаем имя файла у загруженного файла
 
-            check = is_filename_allowed(filename)
+            check = is_filename_allowed(filename)  # Проверяем расширение файла
 
-            if check:  # Проверяем расширение файла
-                pic.save(
-                    f"./uploads/images/ {filename}")  # Сохраняем картинку под родным именем в папку /uploads/images/
+            if check:
+                pic.save(f"{UPLOAD_FOLDER} {filename}")  # Сохраняем картинку под родным именем
                 dict_file_from_form(filename, content)  # сохраняем пост - вызываем функцию
 
             return render_template('post_uploaded.html', check=check, filename=filename, pic=pic, content=content)
