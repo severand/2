@@ -4,7 +4,6 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 from functions import get_post, dict_file_from_form, is_filename_allowed
-# импорт
 
 from lesson12_home_work.main.views import view_foto_blueprint
 from lesson12_home_work.loader.views import loader_foto_blueprint
@@ -14,17 +13,13 @@ UPLOAD_FOLDER = "uploads"
 
 app = Flask(__name__)
 
-# Ограничиваем размер файла здесь
-app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024  # Ограничиваем размер файла здесь
 
-# Чтобы заработала кириллица
-app.config['JSON_AS_ASCII'] = False
+app.config['JSON_AS_ASCII'] = False  # Чтобы заработала кириллица
 
-# Регистрируем блюпринт
-app.register_blueprint(view_foto_blueprint)
+app.register_blueprint(view_foto_blueprint)  # Регистрируем блюпринт
 
-# Регистрируем блюпринт  url_prefix='/foto'
-app.register_blueprint(loader_foto_blueprint)
+app.register_blueprint(loader_foto_blueprint)  # Регистрируем блюпринт
 
 
 @app.route("/")
@@ -43,9 +38,6 @@ def search_page():
     return redirect(url_for('.page_index'))
 
 
-app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
-
-
 @app.route("/upload", methods=["GET", "POST"])
 def page_post_form():
     """Добавить новый пост"""
@@ -57,7 +49,7 @@ def page_post_form():
             filename = pic.filename  # Получаем имя файла у загруженного файла
 
             check = is_filename_allowed(filename)
-            # print(check)
+
             if check:  # Проверяем расширение файла
                 pic.save(
                     f"./uploads/images/ {filename}")  # Сохраняем картинку под родным именем в папку /uploads/images/
