@@ -30,34 +30,6 @@ def load_new_post():
 		logging.info("Файл загружен - данные получены")
 		return data
 
-	# if type(data) is not list:
-	# 	logging.info("Файл загружен - данные получены")
-	# 	data = json.load(file)
-	# 	return data
-	# logging.error("Ошибка загрузки файла - данных нет")
-	# new_file()
-
-
-# # 	logging.info("Файл загружен - данные получены")
-# # 	print(data[0])
-# # if data[0]:
-# 	data = json.load(file)
-# if not EOFError:
-# 	logging.info("Файл загружен - данные получены")
-# 	return data
-# logging.error("Ошибка загрузки файла - данных нет")
-# new_file()
-# logging.info("Файл загружен - данные получены")
-# return data
-
-
-# def new_file():
-# 	"""Создает словарь в пустом файле"""
-# 	new_dict = [dict(zip(["pic", "content"], ["pic","content"]))]
-# 	with open("uploads/posts_new.json", "w", encoding='utf-8-sig') as file:
-# 		json.dump(new_dict, file, indent=4, sort_keys=True, ensure_ascii=False)
-# 		load_new_post()
-
 
 def dict_file_from_form(filename, content):
 	"""Функция создает новый словарь и выгружает в файл"""
