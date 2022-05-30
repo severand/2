@@ -1,19 +1,24 @@
-from flask import Flask, Blueprint
+from flask import Blueprint, request, render_template
 
-# app = Flask(__name__)
+from lesson12_home_work.main.utils import add_new_post, is_filename_allowed, add_new_pictures
 
-# Cоздаем блюпринт
-loader_foto_blueprint = Blueprint('loader_foto', __name__)
+loader_blueprint = Blueprint('loader_', __name__, template_folder='templates')
 
 
-@loader_foto_blueprint.route('/foto/', methods=["GET", "POST"])
-def loader_foto_page():
-    #
-    # filename = pic.filename  # Получаем имя файла у загруженного файла
-    # pic.save(f"./uploads/images/ {filename}")  # Сохраняем картинку под родным именем в папку /uploads/images/
-    #
-    # print("loader_foto_blueprint")
+@loader_blueprint.route("/upload", methods=["GET", "POST"])
+def page_post_form():
+    """Добавить новый пост"""
+    if request.method == 'POST':
+        pic = request.files.get("pic")  # Получаем объект картинки из формы
+        content = request.form['content']  # Получаем текст из формы
 
-    return f"Я страничка для загрузки фото пользователя"
+        if len(content) > 0 and pic:  # если есть контент и картинка
+            filename = pic.filename  # Получаем имя файла у загруженного файла
+            check = is_filename_allowed(filename)  # Проверяем расширение файла
 
-# app.run()
+            if check:
+                add_new_pictures(pic)  # Сохраняем картинку в директорию
+                add_new_post(filename, content)  # сохраняем пост - вызываем функцию
+
+            return render_template('post_uploaded.html', check=check, filename=filename, pic=pic, content=content)
+    return render_template('post_form.html')
