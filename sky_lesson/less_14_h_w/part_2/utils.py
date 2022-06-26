@@ -1,21 +1,26 @@
 import sqlite3
 
 
-def data_films():
+def data_films(year1, year2):
     """Подключение к базе и фильтрация данных"""
-    with sqlite3.connect("../../lesson_14/netflix.db") as connection:
+    with sqlite3.connect("../netflix.db") as connection:
         cur = connection.cursor()
-    sqlite_query = """
+    sqlite_query = f"""
                    SELECT title, country, release_year, listed_in, description, date_added
                    FROM netflix
-                   WHERE release_year != ''
+                   WHERE release_year != '' 
+                   AND release_year BETWEEN {year1} AND {year2}
                    ORDER BY release_year DESC             
-                   LIMIT 10000
+                   LIMIT 10
                    """
     cur.execute(sqlite_query)
     executed_query = cur.fetchall()
     data = executed_query
+    print(data)
     return data
+
+
+data_films(2016, 2018)
 
 
 def get_films_range(year_start, year_end):

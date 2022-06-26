@@ -3,7 +3,7 @@ import sqlite3
 
 def data_films():
     """Подключение к базе и фильтрация данных"""
-    with sqlite3.connect("../../lesson_14/netflix.db") as connection:
+    with sqlite3.connect("../netflix.db") as connection:
         cur = connection.cursor()
     sqlite_query = """
                    SELECT "cast"
