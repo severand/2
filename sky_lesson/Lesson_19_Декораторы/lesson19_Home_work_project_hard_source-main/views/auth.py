@@ -3,7 +3,7 @@ from flask import request
 
 from service.auth import generate_token, approve_token
 
-auth_ns = Namespace
+auth_ns = Namespace('auth')
 
 
 @auth_ns.route('/')
